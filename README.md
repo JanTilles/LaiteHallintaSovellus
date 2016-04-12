@@ -1,0 +1,2 @@
+# LaiteHallintaSovellus
+Point College Laitehallintarekisteri

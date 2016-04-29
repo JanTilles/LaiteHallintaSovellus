@@ -243,10 +243,15 @@
     <Content Include="Content\bootstrap-original.css" />
     <Content Include="Content\bootstrap.min-original.css" />
     <Content Include="Content\Bootstrap.css" />
+    <Content Include="Content\Point1.jpg" />
+    <Content Include="Content\PointCollege.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Laitteet.jpg" />
+    <Content Include="Images\Raportit.jpg" />
+    <Content Include="Images\Varasto %281%29.jpg" />
     <Content Include="LaiteHallintaModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>LaiteHallintaModel.edmx</DependentUpon>

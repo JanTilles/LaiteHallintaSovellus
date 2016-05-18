@@ -1,0 +1,80 @@
+﻿@model LaiteHallintaSovellus.Models.Laitteet
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Laitteet</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tyyppi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tyyppi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Malli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Malli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valmistaja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valmistaja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sarjanumero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sarjanumero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hankinta_Pvm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hankinta_Pvm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Takuu_Aika)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Takuu_Aika)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QR_Koodi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QR_Koodi)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

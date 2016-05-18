@@ -1,0 +1,90 @@
+﻿@model LaiteHallintaSovellus.Models.Varastot
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Varastot</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Varasto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Varasto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Osoite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Osoite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postinro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postinro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postitoimipaikka)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postitoimipaikka)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kerros)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kerros)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kone_Maara)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kone_Maara)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Henkilo_Maara)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Henkilo_Maara)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Neliot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Neliot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QR_Koodi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QR_Koodi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Varasto_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

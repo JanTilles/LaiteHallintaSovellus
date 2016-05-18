@@ -7,14 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LaiteHallintaSovellus
+namespace LaiteHallintaSovellus.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Ohjelmat
+    public partial class Sijainnit
     {
-        public int Ohjelma_ID { get; set; }
-        public string Ohjelma { get; set; }
+        public int Sijainti_ID { get; set; }
+        public int Varasto_ID { get; set; }
+        public int Laite_ID { get; set; }
+        public System.DateTime Pvm { get; set; }
+    
+        public virtual Laitteet Laitteet { get; set; }
+        public virtual Varastot Varastot { get; set; }
     }
 }

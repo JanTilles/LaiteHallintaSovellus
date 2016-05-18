@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LaiteHallintaSovellus
+namespace LaiteHallintaSovellus.Models
 {
     using System;
     using System.Data.Entity;

@@ -7,14 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LaiteHallintaSovellus
+namespace LaiteHallintaSovellus.Models
 {
     using System;
     using System.Collections.Generic;
     
     public partial class Asennukset
     {
+        public int AsennusID { get; set; }
         public int Ohjelma_ID { get; set; }
         public int Laite_ID { get; set; }
+    
+        public virtual Laitteet Laitteet { get; set; }
+        public virtual Ohjelmat Ohjelmat { get; set; }
     }
 }

@@ -7,13 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LaiteHallintaSovellus
+namespace LaiteHallintaSovellus.Models
 {
     using System;
     using System.Collections.Generic;
     
     public partial class Varastot
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Varastot()
+        {
+            this.Sijainnit = new HashSet<Sijainnit>();
+        }
+    
         public int Varasto_ID { get; set; }
         public string Varasto { get; set; }
         public string Osoite { get; set; }
@@ -24,5 +30,8 @@ namespace LaiteHallintaSovellus
         public Nullable<int> Henkilo_Maara { get; set; }
         public Nullable<int> Neliot { get; set; }
         public string QR_Koodi { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sijainnit> Sijainnit { get; set; }
     }
 }

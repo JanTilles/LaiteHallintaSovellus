@@ -7,21 +7,32 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LaiteHallintaSovellus
+namespace LaiteHallintaSovellus.Models
 {
     using System;
     using System.Collections.Generic;
     
     public partial class Laitteet
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Laitteet()
+        {
+            this.Asennukset = new HashSet<Asennukset>();
+            this.Sijainnit = new HashSet<Sijainnit>();
+        }
+    
         public int Laite_ID { get; set; }
         public string Tyyppi { get; set; }
         public string Malli { get; set; }
         public string Valmistaja { get; set; }
-        public string Kuvaus { get; set; }
         public string Sarjanumero { get; set; }
         public System.DateTime Hankinta_Pvm { get; set; }
         public Nullable<int> Takuu_Aika { get; set; }
         public string QR_Koodi { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Asennukset> Asennukset { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sijainnit> Sijainnit { get; set; }
     }
 }

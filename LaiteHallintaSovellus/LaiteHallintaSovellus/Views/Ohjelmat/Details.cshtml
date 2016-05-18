@@ -1,0 +1,26 @@
+﻿@model LaiteHallintaSovellus.Models.Ohjelmat
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ohjelmat</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ohjelma)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ohjelma)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Ohjelma_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

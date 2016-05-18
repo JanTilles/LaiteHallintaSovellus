@@ -1,0 +1,86 @@
+﻿@model IEnumerable<LaiteHallintaSovellus.Models.Varastot>
+
+@{
+    ViewBag.Title = "AddLocation";
+}
+
+<h2>AddLocation</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            &nbsp;
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Varasto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Osoite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Postinro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Postitoimipaikka)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kerros)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kone_Maara)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Henkilo_Maara)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Neliot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QR_Koodi)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <input type="checkbox" name="nimi" value="@item.Varasto_ID" />
+        </td>       
+        <td>
+            @Html.DisplayFor(modelItem => item.Varasto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Osoite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Postinro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Postitoimipaikka)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kerros)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kone_Maara)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Henkilo_Maara)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Neliot)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QR_Koodi)
+        </td>
+    </tr>
+}
+</table>
+<div class="form-group">
+    <div class="col-md-10">
+        <input type="submit" value="Lisää" class="btn btn-default" />
+    </div>
+</div>

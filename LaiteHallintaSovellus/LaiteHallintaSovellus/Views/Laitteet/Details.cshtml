@@ -1,0 +1,74 @@
+﻿@model LaiteHallintaSovellus.Models.Laitteet
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Laitteet</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tyyppi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tyyppi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Malli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Malli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valmistaja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valmistaja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sarjanumero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sarjanumero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hankinta_Pvm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hankinta_Pvm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Takuu_Aika)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Takuu_Aika)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QR_Koodi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QR_Koodi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Laite_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

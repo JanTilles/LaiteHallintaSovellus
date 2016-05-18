@@ -197,47 +197,50 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Asennukset.cs">
-      <DependentUpon>LaiteHallintaModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LaitteetController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OhjelmatController.cs" />
+    <Compile Include="Controllers\VarastotController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="LaiteHallintaModel.Context.cs">
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Asennukset.cs">
+      <DependentUpon>LaiteHallintaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LaiteHallintaModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LaiteHallintaModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="LaiteHallintaModel.cs">
+    <Compile Include="Models\LaiteHallintaModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LaiteHallintaModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="LaiteHallintaModel.Designer.cs">
+    <Compile Include="Models\LaiteHallintaModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LaiteHallintaModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Laitteet.cs">
+    <Compile Include="Models\Laitteet.cs">
       <DependentUpon>LaiteHallintaModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Ohjelmat.cs">
+    <Compile Include="Models\Ohjelmat.cs">
+      <DependentUpon>LaiteHallintaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Sijainnit.cs">
+      <DependentUpon>LaiteHallintaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Varastot.cs">
       <DependentUpon>LaiteHallintaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sijainnit.cs">
-      <DependentUpon>LaiteHallintaModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="Varastot.cs">
-      <DependentUpon>LaiteHallintaModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-original.css" />
@@ -252,12 +255,12 @@
     <Content Include="Images\Laitteet.jpg" />
     <Content Include="Images\Raportit.jpg" />
     <Content Include="Images\Varasto %281%29.jpg" />
-    <Content Include="LaiteHallintaModel.Context.tt">
+    <Content Include="Models\LaiteHallintaModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>LaiteHallintaModel.edmx</DependentUpon>
       <LastGenOutput>LaiteHallintaModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="LaiteHallintaModel.tt">
+    <Content Include="Models\LaiteHallintaModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>LaiteHallintaModel.edmx</DependentUpon>
       <LastGenOutput>LaiteHallintaModel.cs</LastGenOutput>
@@ -269,11 +272,11 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="LaiteHallintaModel.edmx">
+    <EntityDeploy Include="Models\LaiteHallintaModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>LaiteHallintaModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="LaiteHallintaModel.edmx.diagram">
+    <Content Include="Models\LaiteHallintaModel.edmx.diagram">
       <DependentUpon>LaiteHallintaModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -323,6 +326,22 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Tietokannan luontilauseet\Tietokannan luonti.odt" />
+    <Content Include="Views\Laitteet\Create.cshtml" />
+    <Content Include="Views\Laitteet\Delete.cshtml" />
+    <Content Include="Views\Laitteet\Edit.cshtml" />
+    <Content Include="Views\Laitteet\Index.cshtml" />
+    <Content Include="Views\Varastot\Create.cshtml" />
+    <Content Include="Views\Varastot\Delete.cshtml" />
+    <Content Include="Views\Varastot\Details.cshtml" />
+    <Content Include="Views\Varastot\Edit.cshtml" />
+    <Content Include="Views\Varastot\Index.cshtml" />
+    <Content Include="Views\Ohjelmat\Create.cshtml" />
+    <Content Include="Views\Ohjelmat\Delete.cshtml" />
+    <Content Include="Views\Ohjelmat\Details.cshtml" />
+    <Content Include="Views\Ohjelmat\Edit.cshtml" />
+    <Content Include="Views\Ohjelmat\Index.cshtml" />
+    <Content Include="Views\Laitteet\AddSoftware.cshtml" />
+    <Content Include="Views\Laitteet\AddLocation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

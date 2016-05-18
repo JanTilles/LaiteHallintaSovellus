@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0a50de877c854b96b186c4e4034a84c4" Name="Diagram1">
+        <EntityTypeShape EntityType="Laiterekisteri_dbModel.Asennukset" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Laiterekisteri_dbModel.Laitteet" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Laiterekisteri_dbModel.Ohjelmat" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="Laiterekisteri_dbModel.Sijainnit" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Laiterekisteri_dbModel.Varastot" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="Laiterekisteri_dbModel.FK_dbo_Asennukset_dbo_Laitteet_Laite_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Laiterekisteri_dbModel.FK_dbo_Asennukset_dbo_Ohjelmat_Ohjelma_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Laiterekisteri_dbModel.FK_dbo_Sijainnit_dbo_Laitteet_Laite_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Laiterekisteri_dbModel.FK_dbo_Sijannit_dbo_Varastot_Varasto_ID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

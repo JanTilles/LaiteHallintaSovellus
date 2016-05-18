@@ -5,66 +5,46 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Laiterekisteri_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Laiterekisteri_db.dbo.Asennukset' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Asennukset">
           <Key>
-            <PropertyRef Name="Ohjelma_ID" />
-            <PropertyRef Name="Laite_ID" />
+            <PropertyRef Name="AsennusID" />
           </Key>
+          <Property Name="AsennusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Ohjelma_ID" Type="int" Nullable="false" />
           <Property Name="Laite_ID" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Laiterekisteri_db.dbo.Laitteet' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Laitteet">
           <Key>
             <PropertyRef Name="Laite_ID" />
-            <PropertyRef Name="Malli" />
-            <PropertyRef Name="Sarjanumero" />
-            <PropertyRef Name="Hankinta_Pvm" />
           </Key>
           <Property Name="Laite_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Tyyppi" Type="nvarchar" MaxLength="50" />
           <Property Name="Malli" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Valmistaja" Type="nvarchar" MaxLength="100" />
-          <Property Name="Kuvaus" Type="nvarchar" MaxLength="150" />
           <Property Name="Sarjanumero" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Hankinta_Pvm" Type="date" Nullable="false" />
           <Property Name="Takuu_Aika" Type="int" />
           <Property Name="QR_Koodi" Type="nchar" MaxLength="10" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Laiterekisteri_db.dbo.Ohjelmat' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Ohjelmat">
           <Key>
             <PropertyRef Name="Ohjelma_ID" />
-            <PropertyRef Name="Ohjelma" />
           </Key>
           <Property Name="Ohjelma_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Ohjelma" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Laiterekisteri_db.dbo.Sijainnit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Sijainnit">
           <Key>
-            <PropertyRef Name="Varasto_ID" />
-            <PropertyRef Name="Laite_ID" />
-            <PropertyRef Name="Pvm" />
+            <PropertyRef Name="Sijainti_ID" />
           </Key>
+          <Property Name="Sijainti_ID" Type="int" Nullable="false" />
           <Property Name="Varasto_ID" Type="int" Nullable="false" />
           <Property Name="Laite_ID" Type="int" Nullable="false" />
           <Property Name="Pvm" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Laiterekisteri_db.dbo.Varastot' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Varastot">
           <Key>
             <PropertyRef Name="Varasto_ID" />
-            <PropertyRef Name="Varasto" />
-            <PropertyRef Name="Osoite" />
-            <PropertyRef Name="Postinro" />
-            <PropertyRef Name="Postitoimipaikka" />
           </Key>
           <Property Name="Varasto_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Varasto" Type="nvarchar" MaxLength="150" Nullable="false" />
@@ -77,53 +57,84 @@ warning 6002: The table/view 'Laiterekisteri_db.dbo.Varastot' does not have a pr
           <Property Name="Neliot" Type="int" />
           <Property Name="QR_Koodi" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_dbo_Asennukset_dbo_Laitteet_Laite_ID">
+          <End Role="Laitteet" Type="Self.Laitteet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Asennukset" Type="Self.Asennukset" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Laitteet">
+              <PropertyRef Name="Laite_ID" />
+            </Principal>
+            <Dependent Role="Asennukset">
+              <PropertyRef Name="Laite_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Asennukset_dbo_Ohjelmat_Ohjelma_ID">
+          <End Role="Ohjelmat" Type="Self.Ohjelmat" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Asennukset" Type="Self.Asennukset" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ohjelmat">
+              <PropertyRef Name="Ohjelma_ID" />
+            </Principal>
+            <Dependent Role="Asennukset">
+              <PropertyRef Name="Ohjelma_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sijainnit_dbo_Laitteet_Laite_ID">
+          <End Role="Laitteet" Type="Self.Laitteet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sijainnit" Type="Self.Sijainnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Laitteet">
+              <PropertyRef Name="Laite_ID" />
+            </Principal>
+            <Dependent Role="Sijainnit">
+              <PropertyRef Name="Laite_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sijannit_dbo_Varastot_Varasto_ID">
+          <End Role="Varastot" Type="Self.Varastot" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sijainnit" Type="Self.Sijainnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Varastot">
+              <PropertyRef Name="Varasto_ID" />
+            </Principal>
+            <Dependent Role="Sijainnit">
+              <PropertyRef Name="Varasto_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Laiterekisteri_dbModelStoreContainer">
-          <EntitySet Name="Asennukset" EntityType="Self.Asennukset" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Asennukset].[Ohjelma_ID] AS [Ohjelma_ID], 
-    [Asennukset].[Laite_ID] AS [Laite_ID]
-    FROM [dbo].[Asennukset] AS [Asennukset]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Laitteet" EntityType="Self.Laitteet" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Laitteet].[Laite_ID] AS [Laite_ID], 
-    [Laitteet].[Tyyppi] AS [Tyyppi], 
-    [Laitteet].[Malli] AS [Malli], 
-    [Laitteet].[Valmistaja] AS [Valmistaja], 
-    [Laitteet].[Kuvaus] AS [Kuvaus], 
-    [Laitteet].[Sarjanumero] AS [Sarjanumero], 
-    [Laitteet].[Hankinta_Pvm] AS [Hankinta_Pvm], 
-    [Laitteet].[Takuu_Aika] AS [Takuu_Aika], 
-    [Laitteet].[QR_Koodi] AS [QR_Koodi]
-    FROM [dbo].[Laitteet] AS [Laitteet]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Ohjelmat" EntityType="Self.Ohjelmat" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Ohjelmat].[Ohjelma_ID] AS [Ohjelma_ID], 
-    [Ohjelmat].[Ohjelma] AS [Ohjelma]
-    FROM [dbo].[Ohjelmat] AS [Ohjelmat]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Sijainnit" EntityType="Self.Sijainnit" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Sijainnit].[Varasto_ID] AS [Varasto_ID], 
-    [Sijainnit].[Laite_ID] AS [Laite_ID], 
-    [Sijainnit].[Pvm] AS [Pvm]
-    FROM [dbo].[Sijainnit] AS [Sijainnit]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Varastot" EntityType="Self.Varastot" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Varastot].[Varasto_ID] AS [Varasto_ID], 
-    [Varastot].[Varasto] AS [Varasto], 
-    [Varastot].[Osoite] AS [Osoite], 
-    [Varastot].[Postinro] AS [Postinro], 
-    [Varastot].[Postitoimipaikka] AS [Postitoimipaikka], 
-    [Varastot].[Kerros] AS [Kerros], 
-    [Varastot].[Kone_Maara] AS [Kone_Maara], 
-    [Varastot].[Henkilo_Maara] AS [Henkilo_Maara], 
-    [Varastot].[Neliot] AS [Neliot], 
-    [Varastot].[QR_Koodi] AS [QR_Koodi]
-    FROM [dbo].[Varastot] AS [Varastot]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Asennukset" EntityType="Self.Asennukset" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Laitteet" EntityType="Self.Laitteet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ohjelmat" EntityType="Self.Ohjelmat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sijainnit" EntityType="Self.Sijainnit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Varastot" EntityType="Self.Varastot" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Asennukset_dbo_Laitteet_Laite_ID" Association="Self.FK_dbo_Asennukset_dbo_Laitteet_Laite_ID">
+            <End Role="Laitteet" EntitySet="Laitteet" />
+            <End Role="Asennukset" EntitySet="Asennukset" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Asennukset_dbo_Ohjelmat_Ohjelma_ID" Association="Self.FK_dbo_Asennukset_dbo_Ohjelmat_Ohjelma_ID">
+            <End Role="Ohjelmat" EntitySet="Ohjelmat" />
+            <End Role="Asennukset" EntitySet="Asennukset" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sijainnit_dbo_Laitteet_Laite_ID" Association="Self.FK_dbo_Sijainnit_dbo_Laitteet_Laite_ID">
+            <End Role="Laitteet" EntitySet="Laitteet" />
+            <End Role="Sijainnit" EntitySet="Sijainnit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sijannit_dbo_Varastot_Varasto_ID" Association="Self.FK_dbo_Sijannit_dbo_Varastot_Varasto_ID">
+            <End Role="Varastot" EntitySet="Varastot" />
+            <End Role="Sijainnit" EntitySet="Sijainnit" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -132,54 +143,51 @@ warning 6002: The table/view 'Laiterekisteri_db.dbo.Varastot' does not have a pr
       <Schema Namespace="Laiterekisteri_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Asennukset">
           <Key>
-            <PropertyRef Name="Ohjelma_ID" />
-            <PropertyRef Name="Laite_ID" />
+            <PropertyRef Name="AsennusID" />
           </Key>
+          <Property Name="AsennusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Ohjelma_ID" Type="Int32" Nullable="false" />
           <Property Name="Laite_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Laitteet" Relationship="Self.FK_dbo_Asennukset_dbo_Laitteet_Laite_ID" FromRole="Asennukset" ToRole="Laitteet" />
+          <NavigationProperty Name="Ohjelmat" Relationship="Self.FK_dbo_Asennukset_dbo_Ohjelmat_Ohjelma_ID" FromRole="Asennukset" ToRole="Ohjelmat" />
         </EntityType>
         <EntityType Name="Laitteet">
           <Key>
             <PropertyRef Name="Laite_ID" />
-            <PropertyRef Name="Malli" />
-            <PropertyRef Name="Sarjanumero" />
-            <PropertyRef Name="Hankinta_Pvm" />
           </Key>
           <Property Name="Laite_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Tyyppi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Malli" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Valmistaja" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Kuvaus" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Sarjanumero" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Hankinta_Pvm" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Takuu_Aika" Type="Int32" />
           <Property Name="QR_Koodi" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Asennukset" Relationship="Self.FK_dbo_Asennukset_dbo_Laitteet_Laite_ID" FromRole="Laitteet" ToRole="Asennukset" />
+          <NavigationProperty Name="Sijainnit" Relationship="Self.FK_dbo_Sijainnit_dbo_Laitteet_Laite_ID" FromRole="Laitteet" ToRole="Sijainnit" />
         </EntityType>
         <EntityType Name="Ohjelmat">
           <Key>
             <PropertyRef Name="Ohjelma_ID" />
-            <PropertyRef Name="Ohjelma" />
           </Key>
           <Property Name="Ohjelma_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Ohjelma" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Asennukset" Relationship="Self.FK_dbo_Asennukset_dbo_Ohjelmat_Ohjelma_ID" FromRole="Ohjelmat" ToRole="Asennukset" />
         </EntityType>
         <EntityType Name="Sijainnit">
           <Key>
-            <PropertyRef Name="Varasto_ID" />
-            <PropertyRef Name="Laite_ID" />
-            <PropertyRef Name="Pvm" />
+            <PropertyRef Name="Sijainti_ID" />
           </Key>
+          <Property Name="Sijainti_ID" Type="Int32" Nullable="false" />
           <Property Name="Varasto_ID" Type="Int32" Nullable="false" />
           <Property Name="Laite_ID" Type="Int32" Nullable="false" />
           <Property Name="Pvm" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Laitteet" Relationship="Self.FK_dbo_Sijainnit_dbo_Laitteet_Laite_ID" FromRole="Sijainnit" ToRole="Laitteet" />
+          <NavigationProperty Name="Varastot" Relationship="Self.FK_dbo_Sijannit_dbo_Varastot_Varasto_ID" FromRole="Sijainnit" ToRole="Varastot" />
         </EntityType>
         <EntityType Name="Varastot">
           <Key>
             <PropertyRef Name="Varasto_ID" />
-            <PropertyRef Name="Varasto" />
-            <PropertyRef Name="Osoite" />
-            <PropertyRef Name="Postinro" />
-            <PropertyRef Name="Postitoimipaikka" />
           </Key>
           <Property Name="Varasto_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Varasto" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
@@ -191,13 +199,86 @@ warning 6002: The table/view 'Laiterekisteri_db.dbo.Varastot' does not have a pr
           <Property Name="Henkilo_Maara" Type="Int32" />
           <Property Name="Neliot" Type="Int32" />
           <Property Name="QR_Koodi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sijainnit" Relationship="Self.FK_dbo_Sijannit_dbo_Varastot_Varasto_ID" FromRole="Varastot" ToRole="Sijainnit" />
         </EntityType>
+        <Association Name="FK_dbo_Asennukset_dbo_Laitteet_Laite_ID">
+          <End Role="Laitteet" Type="Self.Laitteet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Asennukset" Type="Self.Asennukset" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Laitteet">
+              <PropertyRef Name="Laite_ID" />
+            </Principal>
+            <Dependent Role="Asennukset">
+              <PropertyRef Name="Laite_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Asennukset_dbo_Ohjelmat_Ohjelma_ID">
+          <End Role="Ohjelmat" Type="Self.Ohjelmat" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Asennukset" Type="Self.Asennukset" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ohjelmat">
+              <PropertyRef Name="Ohjelma_ID" />
+            </Principal>
+            <Dependent Role="Asennukset">
+              <PropertyRef Name="Ohjelma_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sijainnit_dbo_Laitteet_Laite_ID">
+          <End Role="Laitteet" Type="Self.Laitteet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sijainnit" Type="Self.Sijainnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Laitteet">
+              <PropertyRef Name="Laite_ID" />
+            </Principal>
+            <Dependent Role="Sijainnit">
+              <PropertyRef Name="Laite_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sijannit_dbo_Varastot_Varasto_ID">
+          <End Role="Varastot" Type="Self.Varastot" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sijainnit" Type="Self.Sijainnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Varastot">
+              <PropertyRef Name="Varasto_ID" />
+            </Principal>
+            <Dependent Role="Sijainnit">
+              <PropertyRef Name="Varasto_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Laiterekisteri_dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Asennukset" EntityType="Self.Asennukset" />
           <EntitySet Name="Laitteet" EntityType="Self.Laitteet" />
           <EntitySet Name="Ohjelmat" EntityType="Self.Ohjelmat" />
           <EntitySet Name="Sijainnit" EntityType="Self.Sijainnit" />
           <EntitySet Name="Varastot" EntityType="Self.Varastot" />
+          <AssociationSet Name="FK_dbo_Asennukset_dbo_Laitteet_Laite_ID" Association="Self.FK_dbo_Asennukset_dbo_Laitteet_Laite_ID">
+            <End Role="Laitteet" EntitySet="Laitteet" />
+            <End Role="Asennukset" EntitySet="Asennukset" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Asennukset_dbo_Ohjelmat_Ohjelma_ID" Association="Self.FK_dbo_Asennukset_dbo_Ohjelmat_Ohjelma_ID">
+            <End Role="Ohjelmat" EntitySet="Ohjelmat" />
+            <End Role="Asennukset" EntitySet="Asennukset" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sijainnit_dbo_Laitteet_Laite_ID" Association="Self.FK_dbo_Sijainnit_dbo_Laitteet_Laite_ID">
+            <End Role="Laitteet" EntitySet="Laitteet" />
+            <End Role="Sijainnit" EntitySet="Sijainnit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sijannit_dbo_Varastot_Varasto_ID" Association="Self.FK_dbo_Sijannit_dbo_Varastot_Varasto_ID">
+            <End Role="Varastot" EntitySet="Varastot" />
+            <End Role="Sijainnit" EntitySet="Sijainnit" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -208,6 +289,7 @@ warning 6002: The table/view 'Laiterekisteri_db.dbo.Varastot' does not have a pr
           <EntitySetMapping Name="Asennukset">
             <EntityTypeMapping TypeName="Laiterekisteri_dbModel.Asennukset">
               <MappingFragment StoreEntitySet="Asennukset">
+                <ScalarProperty Name="AsennusID" ColumnName="AsennusID" />
                 <ScalarProperty Name="Ohjelma_ID" ColumnName="Ohjelma_ID" />
                 <ScalarProperty Name="Laite_ID" ColumnName="Laite_ID" />
               </MappingFragment>
@@ -220,7 +302,6 @@ warning 6002: The table/view 'Laiterekisteri_db.dbo.Varastot' does not have a pr
                 <ScalarProperty Name="Tyyppi" ColumnName="Tyyppi" />
                 <ScalarProperty Name="Malli" ColumnName="Malli" />
                 <ScalarProperty Name="Valmistaja" ColumnName="Valmistaja" />
-                <ScalarProperty Name="Kuvaus" ColumnName="Kuvaus" />
                 <ScalarProperty Name="Sarjanumero" ColumnName="Sarjanumero" />
                 <ScalarProperty Name="Hankinta_Pvm" ColumnName="Hankinta_Pvm" />
                 <ScalarProperty Name="Takuu_Aika" ColumnName="Takuu_Aika" />
@@ -239,6 +320,7 @@ warning 6002: The table/view 'Laiterekisteri_db.dbo.Varastot' does not have a pr
           <EntitySetMapping Name="Sijainnit">
             <EntityTypeMapping TypeName="Laiterekisteri_dbModel.Sijainnit">
               <MappingFragment StoreEntitySet="Sijainnit">
+                <ScalarProperty Name="Sijainti_ID" ColumnName="Sijainti_ID" />
                 <ScalarProperty Name="Varasto_ID" ColumnName="Varasto_ID" />
                 <ScalarProperty Name="Laite_ID" ColumnName="Laite_ID" />
                 <ScalarProperty Name="Pvm" ColumnName="Pvm" />

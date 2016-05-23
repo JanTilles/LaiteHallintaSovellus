@@ -198,11 +198,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AsennuksetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LaitteetController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OhjelmatController.cs" />
+    <Compile Include="Controllers\SijainnitController.cs" />
     <Compile Include="Controllers\VarastotController.cs" />
+    <Compile Include="DateHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -340,8 +343,16 @@
     <Content Include="Views\Ohjelmat\Details.cshtml" />
     <Content Include="Views\Ohjelmat\Edit.cshtml" />
     <Content Include="Views\Ohjelmat\Index.cshtml" />
-    <Content Include="Views\Laitteet\AddSoftware.cshtml" />
-    <Content Include="Views\Laitteet\AddLocation.cshtml" />
+    <Content Include="Views\Asennukset\Delete.cshtml" />
+    <Content Include="Views\Asennukset\Details.cshtml" />
+    <Content Include="Views\Asennukset\Edit.cshtml" />
+    <Content Include="Views\Asennukset\Index.cshtml" />
+    <Content Include="Views\Sijainnit\Create.cshtml" />
+    <Content Include="Views\Sijainnit\Delete.cshtml" />
+    <Content Include="Views\Sijainnit\Details.cshtml" />
+    <Content Include="Views\Sijainnit\Edit.cshtml" />
+    <Content Include="Views\Sijainnit\Index.cshtml" />
+    <Content Include="Views\Asennukset\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

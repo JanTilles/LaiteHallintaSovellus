@@ -62,8 +62,8 @@
             @Html.ActionLink("Muokkaa", "Edit", new { id=item.Laite_ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.Laite_ID }) |
             @Html.ActionLink("Poista", "Delete", new { id=item.Laite_ID }) |
-            @Html.ActionLink("Lisää ohjelma", "AddSoftware", new { id = item.Laite_ID }) |
-            @Html.ActionLink("Lisää sijainti", "AddLocation", new { id = item.Laite_ID })
+            @Html.ActionLink("Lisää ohjelma", "../Asennukset/Create", new { id = item.Laite_ID }) |
+            @Html.ActionLink("Lisää sijainti", "../Sijainnit/Create", new { id = item.Laite_ID })
 
         </td>
     </tr>

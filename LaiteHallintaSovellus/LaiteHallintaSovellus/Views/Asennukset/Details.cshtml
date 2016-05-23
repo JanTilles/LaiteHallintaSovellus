@@ -1,0 +1,34 @@
+﻿@model LaiteHallintaSovellus.Models.Asennukset
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Asennukset</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Laitteet.Tyyppi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Laitteet.Tyyppi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ohjelmat.Ohjelma)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ohjelmat.Ohjelma)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AsennusID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

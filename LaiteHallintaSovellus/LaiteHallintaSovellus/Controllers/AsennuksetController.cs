@@ -10,107 +10,117 @@ using LaiteHallintaSovellus.Models;
 
 namespace LaiteHallintaSovellus.Controllers
 {
-    public class LaitteetController : Controller
+    public class AsennuksetController : Controller
     {
         private Laiterekisteri_dbEntities db = new Laiterekisteri_dbEntities();
 
-        // GET: Laitteet
+        // GET: Asennukset
         public ActionResult Index()
         {
-            return View(db.Laitteet.ToList());
+            var asennukset = db.Asennukset.Include(a => a.Laitteet).Include(a => a.Ohjelmat);
+            return View(asennukset.ToList());
         }
 
-        // GET: Laitteet/Details/5
+        // GET: Asennukset/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Laitteet laitteet = db.Laitteet.Find(id);
-            if (laitteet == null)
+            Asennukset asennukset = db.Asennukset.Find(id);
+            if (asennukset == null)
             {
                 return HttpNotFound();
             }
-            return View(laitteet);
+            return View(asennukset);
         }
 
-        // GET: Laitteet/Create
+        // GET: Asennukset/Create
         public ActionResult Create()
         {
+            ViewBag.Laite_ID = new SelectList(db.Laitteet, "Laite_ID", "Tyyppi");
+            ViewBag.Ohjelma_ID = new SelectList(db.Ohjelmat, "Ohjelma_ID", "Ohjelma");
             return View();
+
         }
 
-        // POST: Laitteet/Create
+        // POST: Asennukset/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Laite_ID,Tyyppi,Malli,Valmistaja,Sarjanumero,Hankinta_Pvm,Takuu_Aika,QR_Koodi")] Laitteet laitteet)
+        public ActionResult Create([Bind(Include = "AsennusID,Ohjelma_ID,Laite_ID")] Asennukset asennukset)
         {
             if (ModelState.IsValid)
             {
-                db.Laitteet.Add(laitteet);
+                db.Asennukset.Add(asennukset);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(laitteet);
+            ViewBag.Laite_ID = new SelectList(db.Laitteet, "Laite_ID", "Tyyppi", asennukset.Laite_ID);
+            ViewBag.Ohjelma_ID = new SelectList(db.Ohjelmat, "Ohjelma_ID", "Ohjelma", asennukset.Ohjelma_ID);
+            return View(asennukset);
         }
 
-        // GET: Laitteet/Edit/5
+        // GET: Asennukset/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Laitteet laitteet = db.Laitteet.Find(id);
-            if (laitteet == null)
+            Asennukset asennukset = db.Asennukset.Find(id);
+            if (asennukset == null)
             {
                 return HttpNotFound();
             }
-            return View(laitteet);
+            ViewBag.Laite_ID = new SelectList(db.Laitteet, "Laite_ID", "Tyyppi", asennukset.Laite_ID);
+            ViewBag.Ohjelma_ID = new SelectList(db.Ohjelmat, "Ohjelma_ID", "Ohjelma", asennukset.Ohjelma_ID);
+            return View(asennukset);
         }
 
-        // POST: Laitteet/Edit/5
+        // POST: Asennukset/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Laite_ID,Tyyppi,Malli,Valmistaja,Sarjanumero,Hankinta_Pvm,Takuu_Aika,QR_Koodi")] Laitteet laitteet)
+        public ActionResult Edit([Bind(Include = "AsennusID,Ohjelma_ID,Laite_ID")] Asennukset asennukset)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(laitteet).State = EntityState.Modified;
+                db.Entry(asennukset).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(laitteet);
+            ViewBag.Laite_ID = new SelectList(db.Laitteet, "Laite_ID", "Tyyppi", asennukset.Laite_ID);
+            ViewBag.Ohjelma_ID = new SelectList(db.Ohjelmat, "Ohjelma_ID", "Ohjelma", asennukset.Ohjelma_ID);
+            return View(asennukset);
         }
 
-        // GET: Laitteet/Delete/5
+        // GET: Asennukset/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Laitteet laitteet = db.Laitteet.Find(id);
-            if (laitteet == null)
+            Asennukset asennukset = db.Asennukset.Find(id);
+            if (asennukset == null)
             {
                 return HttpNotFound();
             }
-            return View(laitteet);
+            return View(asennukset);
         }
 
-        // POST: Laitteet/Delete/5
+        // POST: Asennukset/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Laitteet laitteet = db.Laitteet.Find(id);
-            db.Laitteet.Remove(laitteet);
+            Asennukset asennukset = db.Asennukset.Find(id);
+            db.Asennukset.Remove(asennukset);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

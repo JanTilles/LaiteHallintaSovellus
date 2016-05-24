@@ -37,9 +37,10 @@ namespace LaiteHallintaSovellus.Controllers
         }
 
         // GET: Sijainnit/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.Laite_ID = new SelectList(db.Laitteet, "Laite_ID", "Tyyppi");
+            ViewBag.Laite_ID = id;
+            //ViewBag.Laite_ID = new SelectList(db.Laitteet, "Laite_ID", "Tyyppi");
             ViewBag.Varasto_ID = new SelectList(db.Varastot, "Varasto_ID", "Varasto");
             return View();
         }

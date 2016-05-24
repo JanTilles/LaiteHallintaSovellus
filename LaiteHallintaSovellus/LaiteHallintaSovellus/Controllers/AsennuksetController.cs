@@ -37,9 +37,10 @@ namespace LaiteHallintaSovellus.Controllers
         }
 
         // GET: Asennukset/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.Laite_ID = new SelectList(db.Laitteet, "Laite_ID", "Tyyppi");
+            ViewBag.Laite_ID=id;
+            //ViewBag.Laite_ID = new SelectList(db.Laitteet, "Laite_ID", "Tyyppi");
             ViewBag.Ohjelma_ID = new SelectList(db.Ohjelmat, "Ohjelma_ID", "Ohjelma");
             return View();
 

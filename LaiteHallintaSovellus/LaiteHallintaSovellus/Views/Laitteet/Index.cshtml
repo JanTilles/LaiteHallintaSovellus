@@ -8,65 +8,75 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    @using (Html.BeginForm())
+    {
+    <p>
+            <div class="col-md-10">
+                Haku: @Html.TextBox("hakuSana") &nbsp; &nbsp;<input type="submit" value="Hae" class="btn btn-default" />
+            </div>   
+    </p>
+    }   
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Tyyppi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Malli)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Valmistaja)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Sarjanumero)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hankinta_Pvm)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Takuu_Aika)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.QR_Koodi)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tyyppi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Malli)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Valmistaja)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sarjanumero)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hankinta_Pvm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Takuu_Aika)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QR_Koodi)
-        </td>
-        <td>
-            @Html.ActionLink("Muokkaa", "Edit", new { id=item.Laite_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Laite_ID }) |
-            @Html.ActionLink("Poista", "Delete", new { id=item.Laite_ID }) |
-            @Html.ActionLink("Lisää ohjelma", "../Asennukset/Create", new { id = item.Laite_ID }) |
-            @Html.ActionLink("Lisää sijainti", "../Sijainnit/Create", new { id = item.Laite_ID })
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tyyppi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Malli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valmistaja)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sarjanumero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hankinta_Pvm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Takuu_Aika)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QR_Koodi)
+            </th>
+            <th></th>
+        </tr>
 
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tyyppi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Malli)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valmistaja)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sarjanumero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hankinta_Pvm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Takuu_Aika)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QR_Koodi)
+                </td>
+                <td>
+                    @Html.ActionLink("Muokkaa", "Edit", new { id = item.Laite_ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Laite_ID }) |
+                    @Html.ActionLink("Poista", "Delete", new { id = item.Laite_ID }) |
+                    @Html.ActionLink("Lisää ohjelma", "../Asennukset/Create", new { id = item.Laite_ID }) |
+                    @Html.ActionLink("Lisää sijainti", "../Sijainnit/Create", new { id = item.Laite_ID })
 
-</table>
+                </td>
+            </tr>
+        }
+
+    </table>

@@ -15,9 +15,17 @@ namespace LaiteHallintaSovellus.Controllers
         private Laiterekisteri_dbEntities db = new Laiterekisteri_dbEntities();
 
         // GET: Laitteet
-        public ActionResult Index()
+        public ActionResult Index(string hakuSana)
         {
-            return View(db.Laitteet.ToList());
+            var laitteet = from l in db.Laitteet
+                         select l;
+
+            if (!String.IsNullOrEmpty(hakuSana))
+            {
+                laitteet = laitteet.Where(s => s.Tyyppi.Contains(hakuSana) || s.Sarjanumero.Contains(hakuSana) || s.Valmistaja.Contains(hakuSana) || s.Malli.Contains(hakuSana) || s.QR_Koodi.Contains(hakuSana));
+            }
+            return View(laitteet);
+            //return View(db.Laitteet.ToList());
         }
 
         // GET: Laitteet/Details/5

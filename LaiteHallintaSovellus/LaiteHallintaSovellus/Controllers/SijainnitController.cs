@@ -37,10 +37,9 @@ namespace LaiteHallintaSovellus.Controllers
         }
 
         // GET: Sijainnit/Create
-        public ActionResult Create(int? id)
+        public ActionResult Create()
         {
-            ViewBag.Laite_ID = id;
-            //ViewBag.Laite_ID = new SelectList(db.Laitteet, "Laite_ID", "Tyyppi");
+            ViewBag.Laite_ID = new SelectList(db.Laitteet, "Laite_ID", "Tyyppi");
             ViewBag.Varasto_ID = new SelectList(db.Varastot, "Varasto_ID", "Varasto");
             return View();
         }
@@ -50,15 +49,20 @@ namespace LaiteHallintaSovellus.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Sijainti_ID,Varasto_ID,Laite_ID,Pvm")] Sijainnit sijainnit)
+        public ActionResult Create([Bind(Include = "Sijainti_ID,Varasto_ID,Laite_ID")] Sijainnit sijainnit)
         {
             if (ModelState.IsValid)
             {
+                // Lisätään tauluun päivämäärä tieto
+                sijainnit.Pvm = DateTime.Today;
                 db.Sijainnit.Add(sijainnit);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            DateTime paiva = DateTime.Today;
+            ViewBag.pvm = paiva; 
+            /*paiva = DateTime.Today;
+            ViewBag.paiva;*/
             ViewBag.Laite_ID = new SelectList(db.Laitteet, "Laite_ID", "Tyyppi", sijainnit.Laite_ID);
             ViewBag.Varasto_ID = new SelectList(db.Varastot, "Varasto_ID", "Varasto", sijainnit.Varasto_ID);
             return View(sijainnit);

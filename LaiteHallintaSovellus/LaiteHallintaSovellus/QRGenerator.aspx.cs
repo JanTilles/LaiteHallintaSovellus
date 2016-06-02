@@ -8,19 +8,47 @@ using iTextSharp.text;
 
 namespace LaiteHallintaSovellus
 {
+
     public partial class QRGenerator : System.Web.UI.Page
     {
 
-        int id = 1234;
-        string path = "c:\\Temp\\LaiteHallintaSovellus\\LaiteHallintaSovellus\\LaiteHallintaSovellus\\Images\\QRCodes\\";
-
+        int id = getQrCount();
+       
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {           
+        }
 
+        protected void SaveQrCount(int count)
+        {
+            // create a writer and open the file
+            StreamWriter sw = new StreamWriter("C:\\Temp\\count.txt"); 
+
+            // write a line of text to the file
+            sw.WriteLine(count);
+
+            // close the stream
+            sw.Close();
+        }
+
+        static int getQrCount()
+        {
+                // create reader & open file
+                StreamReader sr = new StreamReader("C:\\Temp\\count.txt");
+
+                // read a line of text
+                int count = int.Parse(sr.ReadLine());
+  
+                // close the stream
+                sr.Close();
+
+                // return count
+                return count;
         }
 
         protected void CreateCode_OnClick(object sender, EventArgs e)
         {
+            string path = "c:\\Temp\\LaiteHallintaSovellus\\LaiteHallintaSovellus\\LaiteHallintaSovellus\\Images\\QRCodes\\";
+
             QRCodeEncoder encoder = new QRCodeEncoder();
          
             // 30% virheenkorjaus
@@ -32,6 +60,7 @@ namespace LaiteHallintaSovellus
                 img.Save(path + id +".jpg", ImageFormat.Jpeg);
                 id = id + 1;
             }
+            SaveQrCount(id);
         }
 
         protected void CreatePDF_OnClick(object sender, EventArgs e)

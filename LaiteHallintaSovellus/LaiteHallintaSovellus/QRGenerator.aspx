@@ -10,7 +10,6 @@
     <form id="form1" runat="server">
     <div>
         <asp:Image runat="server" ID="QRImage" />
-        <asp:Button runat="server" ID="CreateCodes" Text="Luo QR-koodit" OnClick="CreateCode_OnClick" />
         <asp:Button runat="server" ID="Button1" Text="Luo PDF" OnClick="CreatePDF_OnClick" />
     </div>
     </form>

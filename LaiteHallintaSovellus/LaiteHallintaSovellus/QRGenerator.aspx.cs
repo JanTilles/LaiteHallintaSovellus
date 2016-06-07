@@ -13,108 +13,112 @@ namespace LaiteHallintaSovellus
     {
 
         int id = getQrCount();
-       
-        protected void Page_Load(object sender, EventArgs e)
-        {           
-        }
 
+        // Metodi tallentaa seuraavan vapaan koodi id:n
         protected void SaveQrCount(int count)
         {
-            // create a writer and open the file
+            // luodaan kirjoitin ja avataan tiedosto
             StreamWriter sw = new StreamWriter("C:\\Temp\\count.txt"); 
 
-            // write a line of text to the file
+            // kirjoitetaan luku tiedostoon
             sw.WriteLine(count);
 
-            // close the stream
+            // suljetaan streami
             sw.Close();
         }
 
+        // Metodi palauttaa seuraavan vapaan koodi id:n
         static int getQrCount()
         {
-                // create reader & open file
+                // luodaan kirjoitin ja avataan tiedosto
                 StreamReader sr = new StreamReader("C:\\Temp\\count.txt");
 
-                // read a line of text
+                // luetaan rivi tiedostosta
                 int count = int.Parse(sr.ReadLine());
   
-                // close the stream
+                // suljetaan streami
                 sr.Close();
 
-                // return count
+                // palautetaan int arvo
                 return count;
         }
 
-        protected void CreateCode_OnClick(object sender, EventArgs e)
+        // Metodi muodostaa QR koodin ja tallentaa sen QRCodes kansioon
+        protected int CreateQRCodeId()
         {
+
             string path = "c:\\Temp\\LaiteHallintaSovellus\\LaiteHallintaSovellus\\LaiteHallintaSovellus\\Images\\QRCodes\\";
 
+            // Haetaan seuraava vapaa koodi
+            int id = getQrCount();
+
+            // Muodostetaan QR encoder
             QRCodeEncoder encoder = new QRCodeEncoder();
-         
+
             // 30% virheenkorjaus
             encoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.H;
 
-            for (int i = 0; i < 5; i++)
-            {
-                Bitmap img = encoder.Encode("http://www.google.com/id=" + id);
-                img.Save(path + id +".jpg", ImageFormat.Jpeg);
-                id = id + 1;
-            }
-            SaveQrCount(id);
+            // Muodostetaan QR koodi
+            Bitmap img = encoder.Encode("http://www.google.com/id=" + id);
+            img.Save(path + id + ".jpg", ImageFormat.Jpeg);
+
+            // Kasvatetaan ja tallennetaan uusi vapaa arvo
+            SaveQrCount(id + 1);
+
+            //palautetaan arvo
+            return id;
         }
 
+
+        // Metodi muodostaa koodeille pdf tiedoston
         protected void CreatePDF_OnClick(object sender, EventArgs e)
         {
 
-            // Create Font Styles
-            var titleFont = FontFactory.GetFont("Arial", 18, iTextSharp.text.Font.BOLD);
-            var subTitleFont = FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.BOLD);
-            var boldTableFont = FontFactory.GetFont("Arial", 12, iTextSharp.text.Font.BOLD);
-            var endingMessageFont = FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.ITALIC);
-            var bodyFont = FontFactory.GetFont("Arial", 12, iTextSharp.text.Font.NORMAL);
+            // Tekstityyli
+            var bodyFont = FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.NORMAL);
 
-            var txtOrderID = "ID tieto";
-
-            // Create Table
-            var orderInfoTable = new PdfPTable(2);
-            orderInfoTable.HorizontalAlignment = 0;
-            orderInfoTable.SpacingBefore = 10;
-            orderInfoTable.SpacingAfter = 10;
-            orderInfoTable.DefaultCell.Border = 0;
-            orderInfoTable.SetWidths(new int[] { 1, 4 });
-
-            
-            orderInfoTable.AddCell(new Phrase("Koodi:", boldTableFont));
-
-            // Get Image
-            var logo = iTextSharp.text.Image.GetInstance(Server.MapPath("~/Images/QRCodes/1234.jpg"));
-            //logo.SetAbsolutePosition(440, 800);
-            orderInfoTable.AddCell(logo);
-
-            // Create a Document object
+            // Taulun luonti
+            var qrTable = new PdfPTable(5);
+            qrTable.HorizontalAlignment = 0;
+            qrTable.SpacingBefore = 10;
+            qrTable.SpacingAfter = 10;
+            qrTable.DefaultCell.Border = 0;
+                
+            // Luodaan document objekti
             var document = new Document(PageSize.A4, 50, 50, 25, 25);
 
-            // Create a new PdfWriter object, specifying the output stream
+            // Luodaan PdfWriter objekti ja kirjoitin
             var output = new MemoryStream();
             var writer = PdfWriter.GetInstance(document, output);
 
-            // Open the Document for writing
+            // Avataan dokumentti kirjoittamista varten 
             document.Open();
 
-            // Add the Paragraph object to the document
-            document.Add(new Paragraph("Testi teksti ", bodyFont));
+            for (int i = 0; i < 40; i++)
+            {
+                // Haetaan seuraava koodi
+                int id = CreateQRCodeId();            
+                
+                // Haetaan koodia vastaava kuva
+                var img = iTextSharp.text.Image.GetInstance(Server.MapPath("~/Images/QRCodes/"+id+".jpg"));
 
-            // Add table to document
-            document.Add(orderInfoTable);
+                // Muodostetaan uusi elementti tauluun
+                var cell = new PdfPCell { PaddingLeft = 15, PaddingTop = 15, PaddingBottom = 15, PaddingRight = 15, Border = 0 };
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.AddElement(img);
+                cell.AddElement(new Paragraph(id.ToString(), bodyFont));
 
-            // Add code to document
-            //document.Add(logo);
+                // Lisätään elementti tauluun
+                qrTable.AddCell(cell);
+            }
 
-            // Close the Document - this saves the document contents to the output stream
+            // Lisätään taulu pdf-tiedostoon
+            document.Add(qrTable);
+
+            // Suljetaan dokumentti ja syötetään lopputulos selaimelle. 
             document.Close();
-
             Response.ContentType = "application/pdf";
-            Response.AddHeader("Content-Disposition", string.Format("attachment;filename=Receipt-{0}.pdf", txtOrderID));
+            Response.AddHeader("Content-Disposition", string.Format("attachment;filename=QRCodes.pdf"));
             Response.BinaryWrite(output.ToArray());
         }
     }
